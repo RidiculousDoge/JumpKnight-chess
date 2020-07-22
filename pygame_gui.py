@@ -48,12 +48,41 @@ class ChessBoard:
         # 每xxms更新显示self.board
     '''
 
-def main():
+def get_square_name(event):
+    x, y = event.pos
+    if (x <= 20 or y <= 20 or y > 500 or (x > 500 and x < 600)):
+        pass
+    elif (x <= 600):
+        # round函数四舍五入
+        file_square = int((x - 20) / 60)
+        rank_square = int((y - 20) / 60)
+        square_name = chess.FILE_NAMES[file_square] + chess.RANK_NAMES[rank_square]
+        current_pos = square_name
+    elif x>600:
+        pass
+    return square_name
+
+if __name__=="__main__":
     pygame.init()
     pygame.display.set_caption('跳跳马')
     screen=pygame.display.set_mode((SIZE,SIZE))
-    while 1:
-        gui=ChessBoard()
-        gui.draw(screen)
-main()
+    running=True
+    gui=ChessBoard()
+    gui.draw()
+    while running:
+        current_pos=''
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                running=False
+            elif event.type==pygame.KEYUP:
+                pass
+            elif event.type==pygame.MOUSEBUTTONDOWN and event.button==1:
+                current_pos=get_square_name(event)
+            elif event.type==pygame.MOUSEBUTTONUP and event.button==1:
+                square_name=get_square_name(event)
+                
+    pygame.quit()
+
+
+
 
