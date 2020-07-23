@@ -77,12 +77,22 @@ def dfsKnight(board):
                 print("no possible route!")
                 return []
     return route
+
+def showformatRoute(route):
+    for i in range(len(route)):
+        print('%d. N%s-%s' % (i + 1, chess.SQUARE_NAMES[route[i].from_square],
+                              chess.SQUARE_NAMES[route[i].to_square]))
+
 if __name__=='__main__':
-    while(True):
+    flag=True
+    print('welcome to jump Knight game! enter board in format of "fen" to get solution!')
+    print('enter q to quit')
+    while(flag):
         fen=input("enter board:")
+        if(fen=='q'):
+            flag=False
+            break
         board=chess.Board(fen)
         route=dfsKnight(board)
-        for i in range(len(route)):
-            print('%d. N%s-%s'%(i+1,chess.SQUARE_NAMES[route[i].from_square],
-                            chess.SQUARE_NAMES[route[i].to_square]))
+        showformatRoute(route)
 
